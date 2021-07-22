@@ -20,7 +20,18 @@
   <body>
     <div class="container-fluid">
         <div id="countdown" style="font-size: 0.3em; text-align:right;">auto refresh in</div>
-        <div class="row">
+        
+        {% if flight_cat == 'VFR'%}
+            <div class="row" style="background: green;">
+        {%elif flight_cat == 'MVFR' %}
+            <div class="row" style="background: blue;">
+        {%elif flight_cat == 'IFR'%}
+            <div class="row" style="background: red;">
+        {%elif flight_cat == 'LIFR'%}
+            <div class="row" style="background: magenta;">
+        {%else%}
+            <div class="row">
+        {%endif%}
             <div class="col">
                 <h1>{{airport}}</h1>
             </div>
@@ -78,7 +89,9 @@
                 <b>Altimeter</b>
             </div>
             <div class="col">
-                {{metar.press}}
+                {%if metar%}
+                    {{metar.press}}
+                {%endif%}
             </div>
         </div>
         <div class="row" style="background: #fff;">
@@ -116,11 +129,15 @@
             <div class="col">
                 {%if metar %}
                     {% for r in metar._remarks %}
-                        <div class='row'>
-                            <div class='col'>
-                                {{r}}
-                            </div>
-                        </div>
+                        <ul>
+                            <li>
+                                {%if r == 'thunderstorm'%}
+                                    <b style='color: red;'>{{r.upper()}}</b>
+                                {% else %}
+                                    {{r | replace('lightning', '<b>lightning</b>')|safe}}
+                                {%endif%}
+                            </li>
+                        </ul>
                     {%endfor%}
                 {%endif%}
             </div>

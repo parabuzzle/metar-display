@@ -1,7 +1,8 @@
 import string
+import re
 
 from flask import Flask
-from flask import render_template
+from flask import render_template, send_from_directory
 from metar import Metar
 import xml.etree.ElementTree as ET
 
@@ -60,5 +61,9 @@ def dashboard_other_airport(identifier):
     airport = identifier.upper()
     flight_cat = fetch_flight_cat(airport)
     return render_template('dashboard.html', airport=airport, metar=fetch_metar(airport), flight_cat=flight_cat)
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory('public', 'favicon.ico')
 
 app.run(host="0.0.0.0", debug=True)
