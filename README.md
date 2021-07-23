@@ -3,6 +3,12 @@ Metar-Display
 
 Display metar information on the big screen in your hangar!
 
+![VFR Example](imgs/vfr.png)
+
+
+![LIFR Example](imgs/lifr.png)
+
+
 ## Instal pre-reqs
 
 ```
